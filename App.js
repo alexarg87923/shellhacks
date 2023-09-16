@@ -26,6 +26,7 @@ export default function App() {
               <Stack.Screen name="Explore" component={Explore} />
               <Stack.Screen name="Messages" component={Messages} />
               <Stack.Screen name="Profile" component={Profile} />
+              
           </Stack.Navigator>
         </View>
         <Nav />
