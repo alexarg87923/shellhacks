@@ -12,20 +12,16 @@ function Nav() {
 
   return (
     <View style={styles.navbar}>
+      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Explore')}>
+        <Icon name="search" size={20} color="white" />
+        <Text style={styles.navText}>Explore</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Home')}>
         <Icon name="home" size={20} color="white" />
         <Text style={styles.navText}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Search')}>
-        <Icon name="search" size={20} color="white" />
-        <Text style={styles.navText}>Search</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Notifications')}>
-        <Icon name="bell" size={20} color="white" />
-        <Text style={styles.navText}>Notifications</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Messages')}>
-        <Icon name="envelope" size={20} color="white" />
+        <Icon name="comment" size={20} color="white" />
         <Text style={styles.navText}>Messages</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Profile')}>
@@ -39,11 +35,17 @@ function Nav() {
 const styles = StyleSheet.create({
   navbar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#333',
     padding: 10,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0
   },
   navItem: {
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
   },

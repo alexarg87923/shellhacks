@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-function Home() {
+function Messages() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home</Text>
+      <Text>Messages</Text>
     </View>
   );
 }
 
-export default Home;
+export default Messages;
