@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
+import Nav from '../components/Nav';
 
-function Login() {
-  const navigation = useNavigation();
+function SignUp() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Sign Up</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -20,21 +21,31 @@ function Login() {
       />
       <TextInput
         style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#7B8B9A"
+        onChangeText={setEmail}
+        value={email}
+      />
+      <TextInput
+        style={styles.input}
         placeholder="Password"
         placeholderTextColor="#7B8B9A"
         secureTextEntry
         onChangeText={setPassword}
         value={password}
       />
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        placeholderTextColor="#7B8B9A"
+        secureTextEntry
+        onChangeText={setConfirmPassword}
+        value={confirmPassword}
+      />
+      <TouchableOpacity style={styles.signUpButton}>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.createAccountButton}
-        onPress={() => navigation.navigate('SignUp')}
-      >
-        <Text style={styles.createAccountText}>Need an Account? Create One</Text>
-      </TouchableOpacity>
+      <Nav />
     </View>
   );
 }
@@ -60,7 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: '#333',
   },
-  loginButton: {
+  signUpButton: {
     width: 300,
     height: 45,
     backgroundColor: '#4B6EE8',
@@ -72,13 +83,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
   },
-  createAccountButton: {
-    marginTop: 15,
-  },
-  createAccountText: {
-    fontSize: 14,
-    color: '#6A60F2',
-  },
 });
 
-export default Login;
+export default SignUp;
