@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -14,23 +14,38 @@ import Explore from './pages/Explore';
 import Messages from './pages/Messages';
 import Profile from './pages/Profile';
 
+function ScreenWithNav({ Component }) {
+  const isFocused = useIsFocused();
+  
+  return (
+    <View style={styles.container}>
+      <View style={styles.navigatorContainer}>
+        <Component />
+      </View>
+      { isFocused && <Nav /> }
+    </View>
+  );
+}
+
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <View style={styles.navigatorContainer}>
-          <Stack.Navigator initialRouteName="Login">
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="Explore" component={Explore} />
-              <Stack.Screen name="Messages" component={Messages} />
-              <Stack.Screen name="Profile" component={Profile} />
-              
-          </Stack.Navigator>
-        </View>
-        <Nav />
-      </View>
+      <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Home">
+            {() => <ScreenWithNav Component={Home} />}
+          </Stack.Screen>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Explore">
+            {() => <ScreenWithNav Component={Explore} />}
+          </Stack.Screen>
+          <Stack.Screen name="Messages">
+            {() => <ScreenWithNav Component={Messages} />}
+          </Stack.Screen>
+          <Stack.Screen name="Profile">
+            {() => <ScreenWithNav Component={Profile} />}
+          </Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
