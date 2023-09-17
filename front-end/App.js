@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Messages from './pages/Messages';
 import Nav from './components/Nav';
 
 export default function App() {
@@ -21,6 +22,13 @@ export default function App() {
             component={Home}
             options={({ route }) => ({
               header: route.name !== 'Login' && route.name !== 'SignUp' ? () => <Nav title="Home" /> : undefined
+            })}
+          />
+          <Stack.Screen 
+            name="Messages" 
+            component={Messages}
+            options={({ route }) => ({
+              header: route.name !== 'Login' && route.name !== 'SignUp' ? () => <Nav title="Messages" /> : undefined
             })}
           />
           <Stack.Screen 

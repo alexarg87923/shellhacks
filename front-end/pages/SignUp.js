@@ -1,38 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
+    paddingTop: 100
   },
   header: {
     fontSize: 24,
-    color: '#6a1b9a',
     marginBottom: 20,
     marginTop: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#673ab7',
     borderRadius: 5,
     marginBottom: 16,
     padding: 12,
-    backgroundColor: '#e1bee7',
-  },
-  picker: {
-    borderWidth: 1,
-    borderColor: '#673ab7',
-    borderRadius: 5,
-    marginBottom: 16,
-    backgroundColor: '#e1bee7',
   },
   button: {
     backgroundColor: '#303f9f',
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
+    marginBottom: 60
   },
   buttonText: {
     color: '#FFF',
@@ -45,55 +36,70 @@ const styles = StyleSheet.create({
   }
 });
 
-function SignUp() {
-  const [selectedValue, setSelectedValue] = useState('STEM');
-  
-  const data = ['STEM', 'Communication', 'Art'];
+function SignUp({ navigation }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+    } else {
+      Alert.alert('Success', 'Account created!');
+      navigation.navigate('Login');
+    }
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Sign Up</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Full Name"
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-      />
-
-      <Picker
-        selectedValue={selectedValue}
-        onValueChange={(itemValue) => setSelectedValue(itemValue)}
-        style={styles.picker}
-      >
-        {data.map((item, index) => (
-          <Picker.Item key={index} label={item} value={item} />
-        ))}
-      </Picker>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Specific Skills"
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="About Me"
-        multiline
-      />
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.container}>
+          <Text style={styles.header}>Sign Up</Text>
+          
+          <ScrollView 
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps='handled'
+          >
+              <TextInput
+                  style={styles.input}
+                  placeholder="First Name"
+                  onChangeText={text => setFirstName(text)}
+              />
+              <TextInput
+                  style={styles.input}
+                  placeholder="Last Name"
+                  onChangeText={text => setLastName(text)}
+              />
+              <TextInput
+                  style={styles.input}
+                  placeholder="Email"
+                  onChangeText={text => setEmail(text)}
+              />
+              <TextInput
+                  style={styles.input}
+                  placeholder="Password"
+                  secureTextEntry={true}
+                  onChangeText={text => setPassword(text)}
+              />
+              <TextInput
+                  style={styles.input}
+                  placeholder="Confirm Password"
+                  secureTextEntry={true}
+                  onChangeText={text => setConfirmPassword(text)}
+              />
+              <TextInput
+                  style={styles.input}
+                  placeholder="Phone Number"
+                  keyboardType="number-pad"
+                  maxLength={10} // Assuming 10 digits without formatting, adjust if needed
+                  onChangeText={text => setPhoneNumber(text)}
+              />
+              <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                  <Text style={styles.buttonText}>Next</Text>
+              </TouchableOpacity>
+          </ScrollView>
+      </View>
   );
 }
 

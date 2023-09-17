@@ -1,42 +1,47 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet, Platform, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useSafeAreaInsets } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import logo from '../assets/logo.png';
 
 function Navbar() {
-  const insets = useSafeAreaInsets();
+    const navigation = useNavigation();
 
-  return (
-    <View style={[styles.navbar, { paddingTop: insets.top }]}>
-      <Icon name="person-circle" size={30} color="#000" style={styles.iconLeft} />
-      <Icon name="chatbubble-ellipses" size={30} color="grey" style={styles.iconRight} />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 60,
-    paddingHorizontal: 10,
-    backgroundColor: '#f9f9f9',
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#ddd',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  iconLeft: {
-    position: 'absolute',
-    left: 10,
-  },
-  iconRight: {
-    position: 'absolute',
-    right: 10,
+    return (
+        <View style={styles.navbar}>
+        <TouchableOpacity style={[styles.iconContainer, { alignItems: 'flex-start' }]} onPress={() => navigation.navigate('Profile')}>
+          <Icon name="person-circle" size={50} color="grey" />
+        </TouchableOpacity>
+  
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Home')}>
+          <Image
+            source={logo}
+            style={{ width: 140, height: 100 }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+  
+        <TouchableOpacity style={[styles.iconContainer, { alignItems: 'flex-end' }]} onPress={() => navigation.navigate('Messages')}>
+          <Icon name="chatbubble-ellipses" size={50} color="grey" />
+        </TouchableOpacity>
+      </View>
+    );
   }
+  
+const styles = StyleSheet.create({
+    navbar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 100,
+        paddingHorizontal: 10,
+        backgroundColor: 'rgb(242,242,242)',
+        paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
+    },
+    iconContainer: {
+        alignItems: 'center', 
+    },
 });
+  
 
 export default Navbar;
