@@ -1,33 +1,15 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useSafeAreaInsets } from '@react-navigation/native';
 
-function Nav() {
-  const navigation = useNavigation();
-
-  const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName);
-  };
+function Navbar() {
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.navbar}>
-      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Explore')}>
-        <Icon name="search" size={20} color="white" />
-        <Text style={styles.navText}>Explore</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Home')}>
-        <Icon name="home" size={20} color="white" />
-        <Text style={styles.navText}>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Messages')}>
-        <Icon name="comment" size={20} color="white" />
-        <Text style={styles.navText}>Messages</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem} onPress={() => navigateToScreen('Profile')}>
-        <Icon name="user" size={20} color="white" />
-        <Text style={styles.navText}>Profile</Text>
-      </TouchableOpacity>
+    <View style={[styles.navbar, { paddingTop: insets.top }]}>
+      <Icon name="person-circle" size={30} color="#000" style={styles.iconLeft} />
+      <Icon name="chatbubble-ellipses" size={30} color="grey" style={styles.iconRight} />
     </View>
   );
 }
@@ -37,22 +19,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#333',
-    padding: 10,
+    height: 60,
+    paddingHorizontal: 10,
+    backgroundColor: '#f9f9f9',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#ddd',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  iconLeft: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0
+    left: 10,
   },
-  navItem: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  navText: {
-    color: 'white',
-    marginTop: 5,
+  iconRight: {
+    position: 'absolute',
+    right: 10,
   }
 });
 
-export default Nav;
+export default Navbar;
