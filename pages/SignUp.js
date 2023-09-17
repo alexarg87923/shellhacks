@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Picker, StyleSheet, Dimensions } from 'react-native';
-import Video from 'react-native-video';
-
-const { width, height } = Dimensions.get('window');
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,33 +42,16 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginVertical: 12,
-  },
-  videoBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width,
-    height,
-  },
+  }
 });
 
-function Signup() {
+function SignUp() {
   const [selectedValue, setSelectedValue] = useState('STEM');
   
+  const data = ['STEM', 'Communication', 'Art'];
+
   return (
     <View style={styles.container}>
-      <Video
-        source={require('../assets/background.mp4')}
-        rate={1.0}
-        volume={1.0}
-        muted={false}
-        resizeMode="cover"
-        repeat
-        style={styles.videoBackground}
-      />
-
       <Text style={styles.header}>Sign Up</Text>
 
       <TextInput
@@ -90,11 +71,12 @@ function Signup() {
 
       <Picker
         selectedValue={selectedValue}
-        style={styles.picker}
         onValueChange={(itemValue) => setSelectedValue(itemValue)}
+        style={styles.picker}
       >
-        <Picker.Item label="STEM" value="STEM" />
-        <Picker.Item label="Communication" value="Communication" />
+        {data.map((item, index) => (
+          <Picker.Item key={index} label={item} value={item} />
+        ))}
       </Picker>
 
       <TextInput
@@ -115,4 +97,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignUp;

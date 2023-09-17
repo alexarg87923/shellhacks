@@ -25,7 +25,7 @@ function Login() {
         onChangeText={setPassword}
         value={password}
       />
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.loginButton}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
